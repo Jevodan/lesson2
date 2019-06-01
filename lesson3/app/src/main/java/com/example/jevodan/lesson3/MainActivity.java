@@ -23,68 +23,62 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
-    private ImageView imageView = null;
+  private FragmentManager fragmentManager;
+  private FragmentTransaction fragmentTransaction;
+  private ImageView imageView = null;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
+          item -> {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    createFragment(new HomeFragment());
-                    return true;
-                case R.id.navigation_dashboard:
-                    createFragment(new DashFragment());
-                    return true;
-                case R.id.navigation_notifications:
-                    createFragment(new NotiFragment());
-                    return true;
+              case R.id.navigation_home:
+                createFragment(new HomeFragment());
+                return true;
+              case R.id.navigation_dashboard:
+                createFragment(new DashFragment());
+                return true;
+              case R.id.navigation_notifications:
+                createFragment(new NotiFragment());
+                return true;
             }
             return false;
-        }
-    };
+          };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        final BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        fragmentManager = getSupportFragmentManager();
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    final BottomNavigationView navView = findViewById(R.id.nav_view);
+    navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    fragmentManager = getSupportFragmentManager();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navView.setVisibility(View.VISIBLE);
-                navView.animate()
-                        .rotationXBy(360)
-                        .setDuration(1500)
-                        .setInterpolator(new OvershootInterpolator(1.5f));
-                // navView.setRotationX(0);
-                Log.d("ТАГ", String.valueOf(navView.getRotationX()));
-                if (imageView != null) {
-                    Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move_animation);
-                    imageView.startAnimation(anim);
-                }
-
-
-            }
+    FloatingActionButton fab = findViewById(R.id.fab);
+    fab.setOnClickListener(
+        view -> {
+          navView.setVisibility(View.VISIBLE);
+          navView
+              .animate()
+              .rotationXBy(360)
+              .setDuration(1500)
+              .setInterpolator(new OvershootInterpolator(1.5f));
+          // navView.setRotationX(0);
+          Log.d("ТАГ", String.valueOf(navView.getRotationX()));
+          if (imageView != null) {
+            Animation anim =
+                AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move_animation);
+            imageView.startAnimation(anim);
+          }
         });
-    }
+  }
 
-    private void createFragment(Fragment fragment) {
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.my_fragment, fragment);
-        fragmentTransaction.commit();
+  private void createFragment(Fragment fragment) {
+    fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.my_fragment, fragment);
+    fragmentTransaction.commit();
 
-        Handler handler = new Handler();
-        handler.post(() -> {
-            imageView = fragment.getView().findViewById(R.id.imageView);
+    Handler handler = new Handler();
+    handler.post(
+        () -> {
+          imageView = fragment.getView().findViewById(R.id.imageView);
         });
-    }
-
+  }
 }
