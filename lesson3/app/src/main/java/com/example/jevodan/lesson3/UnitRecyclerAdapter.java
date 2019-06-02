@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jevodan.lesson3.model.Imp;
 import com.example.jevodan.lesson3.model.Unit;
 
+import java.util.Collections;
 import java.util.List;
 
-public class UnitRecyclerAdapter extends RecyclerView.Adapter {
+public class UnitRecyclerAdapter extends RecyclerView.Adapter implements ItemAdapter {
 
   private static final int UNIT = 1;
   private static final int IMP = 2;
@@ -54,9 +55,20 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
   public int getItemViewType(int position) {
     int wow;
     wow = unitList.get(position) instanceof Unit ? UNIT : IMP;
-    Log.d("ТАГ", String.valueOf(wow)) ;
-    Log.d("ТАГ2", unitList.get(position).getName()) ;
+    Log.d("ТАГ", String.valueOf(wow));
+    Log.d("ТАГ2", unitList.get(position).getName());
     return unitList.get(position) instanceof Imp ? IMP : UNIT;
+  }
+
+  @Override
+  public void onDeleteItem(int position) {
+    removeItem(position);
+  }
+
+  @Override
+  public void onMoveItem(int from, int to) {
+    Collections.swap(unitList, from, to);
+    notifyItemMoved(from, to);
   }
 
   public static class ViewHold extends RecyclerView.ViewHolder {
@@ -69,6 +81,15 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter {
       picture = itemView.findViewById(R.id.picture);
       name = itemView.findViewById(R.id.name);
     }
+  }
+
+  public void removeItem(int position) {
+    unitList.remove(position);
+    notifyItemRemoved(position);
+  }
+
+  public void addItem(Unit unit) {
+    unitList.add(unit);
   }
 
   public static class ViewHoldImp extends RecyclerView.ViewHolder {

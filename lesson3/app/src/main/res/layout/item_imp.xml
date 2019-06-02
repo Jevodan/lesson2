@@ -17,13 +17,14 @@
 
     <TextView
         android:id="@+id/name"
+        android:fontFamily="@font/gothic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@id/picture"
-        android:textSize="22dp"
+        android:textSize="26dp"
         android:textColor="#09AA2B"
-        tools:text="UNIT" />
+        tools:text="Юнит" />
 
 </RelativeLayout>
