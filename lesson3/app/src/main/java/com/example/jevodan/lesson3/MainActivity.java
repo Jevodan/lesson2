@@ -11,11 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Fade;
+import androidx.transition.Scene;
+import androidx.transition.TransitionManager;
+import androidx.transition.TransitionSet;
 
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
@@ -27,21 +33,21 @@ public class MainActivity extends AppCompatActivity {
   private FragmentTransaction fragmentTransaction;
   private ImageView imageView = null;
 
+
   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
-          item -> {
-            switch (item.getItemId()) {
-              case R.id.navigation_home:
-                createFragment(new HomeFragment());
-                return true;
-              case R.id.navigation_dashboard:
-                createFragment(new DashFragment());
-                return true;
-              case R.id.navigation_notifications:
-                createFragment(new NotiFragment());
-                return true;
-            }
-            return false;
-          };
+      item -> {
+        switch (item.getItemId()) {
+          case R.id.navigation_home:            createFragment(new HomeFragment());
+            return true;
+          case R.id.navigation_dashboard:
+            createFragment(new DashFragment());
+            return true;
+          case R.id.navigation_notifications:
+            createFragment(new NotiFragment());
+            return true;
+        }
+        return false;
+      };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
     final BottomNavigationView navView = findViewById(R.id.nav_view);
     navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     fragmentManager = getSupportFragmentManager();
-
     FloatingActionButton fab = findViewById(R.id.fab);
     fab.setOnClickListener(
         view -> {
           navView.setVisibility(View.VISIBLE);
           navView
               .animate()
+              .setListener(null)
               .rotationXBy(360)
               .setDuration(1500)
               .setInterpolator(new OvershootInterpolator(1.5f));
@@ -81,4 +87,6 @@ public class MainActivity extends AppCompatActivity {
           imageView = fragment.getView().findViewById(R.id.imageView);
         });
   }
+
+
 }

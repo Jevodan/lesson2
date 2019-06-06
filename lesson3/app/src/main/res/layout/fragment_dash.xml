@@ -20,4 +20,12 @@
         app:srcCompat="@mipmap/ic_launcher_round"
          />
 
+    <ImageView
+        android:id="@+id/anim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/settings"
+        android:layout_gravity="center|center_vertical"
+        tools:ignore="VectorDrawableCompat" />
+
 </LinearLayout>

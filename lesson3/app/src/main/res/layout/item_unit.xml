@@ -1,27 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_card_view"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:orientation="vertical">
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="#E4F4F5"
+    app:elevation="0dp"
+    app:cardCornerRadius="20dp">
 
     <ImageView
+
         android:id="@+id/picture"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/backround_picture" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/backround_picture"
+        android:backgroundTint="#0905E9" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="-70dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/text_hp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gothic"
+            android:textColor="#0E0E0E"
+            android:textSize="20dp"
+            android:text="Жизней:"
+            tools:text="Жизней:" />
+
+        <TextView
+            android:id="@+id/hp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/text_hp"
+            android:layout_toRightOf="@id/text_hp"
+            android:fontFamily="@font/gothic"
+            android:textColor="#0E0E0E"
+            android:textSize="20dp"
+            tools:text="100" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="-70dp"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/text_attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gothic"
+            android:textColor="#1D1D1D"
+            android:textSize="20dp"
+            android:text="Атака:"
+            tools:text="Атака:   " />
+
+        <TextView
+            android:id="@+id/attack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/text_attack"
+            android:fontFamily="@font/gothic"
+            android:textColor="#1D1D1D"
+            android:textSize="20dp"
+            tools:text="50" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="12dp"
-        android:layout_toEndOf="@id/picture"
+        android:layout_gravity="center_vertical|right"
+        android:layout_margin="10dp"
         android:fontFamily="@font/gothic"
-        android:textSize="22dp"
-        tools:text="UNIT" />
+        android:textColor="#0905E9"
+        android:textSize="30dp"
+        tools:text="Юнит" />
 
-</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

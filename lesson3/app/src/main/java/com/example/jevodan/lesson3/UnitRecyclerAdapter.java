@@ -1,5 +1,12 @@
 package com.example.jevodan.lesson3;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,16 +14,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jevodan.lesson3.model.Imp;
 import com.example.jevodan.lesson3.model.Unit;
-
+import com.example.jevodan.lesson3.tools.CircularTransformation;
+import com.example.jevodan.lesson3.tools.MyAnimation;
+import com.squareup.picasso.Picasso;
 import java.util.Collections;
 import java.util.List;
 
 public class UnitRecyclerAdapter extends RecyclerView.Adapter implements ItemAdapter {
 
+  Unit unit;
+  Uri otherPath;
   private static final int UNIT = 1;
   private static final int IMP = 2;
 
@@ -29,21 +41,28 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter implements ItemAda
   @NonNull
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    switch (viewType) {
-      case IMP:
-        return new ViewHoldImp(
-            LayoutInflater.from(parent.getContext()).inflate(R.layout.item_imp, parent, false));
-      default:
-        return new ViewHold(
-            LayoutInflater.from(parent.getContext()).inflate(R.layout.item_unit, parent, false));
-    }
+    return new ViewHold(
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_unit, parent, false));
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-    if (holder instanceof ViewHold)
-      ((ViewHold) holder).name.setText(unitList.get(position).getName());
-    else ((ViewHoldImp) holder).name.setText(unitList.get(position).getName());
+
+    unit = unitList.get(position);
+    otherPath =
+        Uri.parse("android.resource://com.example.jevodan.lesson3/drawable/" + unit.getPicture());
+    Picasso.get()
+        .load(otherPath)
+        .transform(new CircularTransformation(155))
+        .into(((ViewHold) holder).picture);
+    ((ViewHold) holder).name.setText(unit.getName());
+    ((ViewHold) holder).name.setTextColor(Color.parseColor(unit.getColor()));
+    ((ViewHold) holder)
+        .picture.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(unit.getColor())));
+    ((ViewHold) holder).hp.setText(String.valueOf(unit.getHp()));
+    MyAnimation.ValueAnim(((ViewHold) holder).attack , unit.getAttack());
+    ((ViewHold) holder).attack.setText(String.valueOf(unit.getAttack()));
   }
 
   @Override
@@ -75,11 +94,15 @@ public class UnitRecyclerAdapter extends RecyclerView.Adapter implements ItemAda
 
     ImageView picture;
     TextView name;
+    TextView hp;
+    TextView attack;
 
     public ViewHold(@NonNull View itemView) {
       super(itemView);
       picture = itemView.findViewById(R.id.picture);
       name = itemView.findViewById(R.id.name);
+      hp = itemView.findViewById(R.id.hp);
+      attack = itemView.findViewById(R.id.attack);
     }
   }
 

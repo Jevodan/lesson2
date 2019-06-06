@@ -1,14 +1,36 @@
 package com.example.jevodan.lesson3.model;
 
-public class Unit {
+public abstract class Unit {
 
-  public Unit(String picture, String name) {
-    this.picture = picture;
-    this.name = name;
-  }
-
+  public  String type = "Нейтрал";
+  public  String color = "#FFFFFFFF";
   String picture;
   String name;
+  int hp;
+  int attack;
+
+  public Unit(String picture, String name, int hp, int attack) {
+    this.picture = picture;
+    this.name = name;
+    this.hp = hp;
+    this.attack = attack;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public int getHp() {
+    return hp;
+  }
+
+  public int getAttack() {
+    return attack;
+  }
 
   public String getPicture() {
     return picture;
@@ -24,5 +46,9 @@ public class Unit {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void createUnit(String name){
+
   }
 }

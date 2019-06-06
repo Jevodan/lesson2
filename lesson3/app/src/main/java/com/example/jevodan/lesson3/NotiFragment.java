@@ -15,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jevodan.lesson3.model.Dwa;
 import com.example.jevodan.lesson3.model.Imp;
+import com.example.jevodan.lesson3.model.Leg;
+import com.example.jevodan.lesson3.model.Nec;
 import com.example.jevodan.lesson3.model.Unit;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,7 +39,7 @@ public class NotiFragment extends Fragment {
         () -> {
           FloatingActionButton fab = getActivity().findViewById(R.id.fab);
           FlipInLeftYAnimator flipInLeftYAnimator = new FlipInLeftYAnimator();
-          flipInLeftYAnimator.setRemoveDuration(1000);
+          flipInLeftYAnimator.setRemoveDuration(600);
 
           RecyclerView recyclerView = getView().findViewById(R.id.recycler_unit);
           recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -61,9 +64,12 @@ public class NotiFragment extends Fragment {
 
   private List<Unit> genUnits() {
     List<Unit> unitList = new ArrayList();
-    for (int i = 0; i < 50; i++) {
-      unitList.add(new Unit("", "Юнит" + i));
-      unitList.add(new Imp("", "Рыцарь" + i));
+    for (int i = 0; i < 2; i++) {
+      unitList.add(new Leg("succubus", "Суккуб",125, 0));
+      unitList.add(new Imp("paladin", "Рыцарь", 175, 75));
+      unitList.add(new Dwa("valkyri", "Валькирия",200, 50));
+      unitList.add(new Nec("eldervampire", "Вампир", 250, 55));
+      unitList.add(new Imp("mage", "Маг", 75, 30));
     }
     return unitList;
   }
