@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
   private FragmentTransaction fragmentTransaction;
   private ImageView imageView = null;
 
-
   private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
       item -> {
         switch (item.getItemId()) {
-          case R.id.navigation_home:            createFragment(new HomeFragment());
+          case R.id.navigation_home:
+            createFragment(new HomeFragment());
             return true;
           case R.id.navigation_dashboard:
             createFragment(new DashFragment());
@@ -87,6 +87,4 @@ public class MainActivity extends AppCompatActivity {
           imageView = fragment.getView().findViewById(R.id.imageView);
         });
   }
-
-
 }
